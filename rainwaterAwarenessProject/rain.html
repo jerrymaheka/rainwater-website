@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rainwater Harvesting Awareness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:    #1B3A5C;
+      --rain:   #2E7DB2;
+      --leaf:   #3D8C60;
+      --mist:   #EAF4FB;
+      --earth:  #5C3A1B;
+      --sand:   #F5F0E8;
+      --white:  #FFFFFF;
+      --ink:    #1A1A2E;
+      --mid:    #4A5568;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--sky);
+      color: var(--white);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7EC8E3;
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      max-width: 660px;
+    }
+
+    header h1 span {
+      color: #7EC8E3;
+    }
+
+    .header-sub {
+      margin-top: 18px;
+      font-size: 1.05rem;
+      color: #B8D8EA;
+      max-width: 520px;
+    }
+
+    /* Rain-drop decoration */
+    .drops {
+      position: absolute;
+      top: 0; right: 0;
+      width: 280px; height: 100%;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .drop {
+      fill: #7EC8E3;
+    }
+
+    /* ── NAV STRIP ── */
+    nav {
+      background: var(--rain);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    nav ul {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    nav a {
+      display: block;
+      padding: 14px 18px;
+      color: #D6EEF8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover {
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+
+    .section + .section {
+      border-top: 1px solid #D8E8F0;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rain);
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--sky);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .section p {
+      color: var(--mid);
+      font-size: 1.02rem;
+      max-width: 660px;
+    }
+
+    /* ── INTRO CALLOUT ── */
+    .intro-box {
+      background: var(--mist);
+      border-left: 4px solid var(--rain);
+      border-radius: 0 8px 8px 0;
+      padding: 28px 32px;
+      margin-top: 24px;
+      max-width: 720px;
+    }
+    .intro-box p {
+      color: var(--sky);
+      font-size: 1.07rem;
+      font-style: italic;
+    }
+
+    /* ── TIPS GRID ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .tip-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(30,58,92,0.07);
+      border-top: 3px solid var(--leaf);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tip-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(30,58,92,0.12);
+    }
+    .tip-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    .tip-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--sky);
+      margin-bottom: 6px;
+    }
+    .tip-card p {
+      font-size: 0.88rem;
+      color: var(--mid);
+    }
+
+    /* ── BENEFITS ── */
+    .benefits-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 20px 18px;
+      box-shadow: 0 1px 8px rgba(30,58,92,0.06);
+    }
+    .benefit-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--rain);
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .benefit-item span {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--sky);
+    }
+
+    /* ── DIAGRAM ── */
+    #diagram { background: var(--mist); }
+    .diagram-wrap {
+      margin-top: 28px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(30,58,92,0.13);
+      max-width: 740px;
+      border: 1px solid #C5DFF0;
+    }
+    .diagram-wrap img {
+      width: 100%;
+      display: block;
+    }
+    .diagram-caption {
+      background: var(--sky);
+      color: #B8D8EA;
+      font-size: 0.82rem;
+      padding: 10px 18px;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ── */
+    .contact-form {
+      margin-top: 32px;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--sky);
+    }
+    .field-group input,
+    .field-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.97rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1.5px solid #C5DFF0;
+      border-radius: 7px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-group input:focus,
+    .field-group textarea:focus {
+      border-color: var(--rain);
+      box-shadow: 0 0 0 3px rgba(46,125,178,0.15);
+    }
+    .field-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+    .btn-send {
+      align-self: flex-start;
+      background: var(--rain);
+      color: var(--white);
+      border: none;
+      padding: 13px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-send:hover {
+      background: var(--sky);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--sky);
+      color: #7EA8C4;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+    }
+    footer strong {
+      color: #7EC8E3;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav ul { flex-wrap: wrap; }
+      nav a  { padding: 10px 12px; font-size: 0.78rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tip-card { transition: none; }
+      .btn-send  { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header id="top">
+    <svg class="drops" viewBox="0 0 280 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <ellipse class="drop" cx="60"  cy="50"  rx="18" ry="28"/>
+      <ellipse class="drop" cx="140" cy="90"  rx="14" ry="22"/>
+      <ellipse class="drop" cx="210" cy="40"  rx="22" ry="34"/>
+      <ellipse class="drop" cx="100" cy="160" rx="16" ry="26"/>
+      <ellipse class="drop" cx="200" cy="190" rx="12" ry="20"/>
+      <ellipse class="drop" cx="50"  cy="240" rx="20" ry="30"/>
+      <ellipse class="drop" cx="170" cy="270" rx="14" ry="22"/>
+      <ellipse class="drop" cx="240" cy="130" rx="18" ry="28"/>
+    </svg>
+    <div class="header-inner">
+      <p class="header-eyebrow">Every Drop Counts</p>
+      <h1>Rainwater <span>Harvesting</span> Awareness</h1>
+      <p class="header-sub">Discover how collecting and using rainwater can transform communities, conserve precious resources, and build a resilient future.</p>
+    </div>
+  </header>
+
+  <!-- ── NAV ── -->
+  <nav aria-label="Page sections">
+    <ul>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#tips">Tips</a></li>
+      <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#diagram">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── INTRODUCTION ── -->
+  <section id="intro" class="section">
+    <p class="section-label">What It Is</p>
+    <h2>Introduction to Rainwater Harvesting</h2>
+    <p>Rainwater harvesting is the process of collecting and storing rainwater from rooftops, land surfaces, and other catchment areas for later use. Instead of letting precipitation run off into drains, this practice channels it into tanks, cisterns, or underground reservoirs.</p>
+    <div class="intro-box">
+      <p>Used for thousands of years across Africa, Asia, and beyond, rainwater harvesting is one of humanity's oldest and most practical responses to water scarcity — and it is more relevant today than ever before.</p>
+    </div>
+  </section>
+
+  <!-- ── TIPS ── -->
+  <section id="tips" class="section">
+    <p class="section-label">Take Action</p>
+    <h2>Water Conservation Tips</h2>
+    <p>Small habits add up. Here are four practical steps anyone can take to conserve water every day.</p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🔧</div>
+        <h3>Fix Leaking Taps</h3>
+        <p>A dripping tap can waste thousands of litres per year. Repair it promptly and save both water and money.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🪣</div>
+        <h3>Buckets Over Hoses</h3>
+        <p>A garden hose can use up to 1,000 litres per hour. Switch to a bucket for washing and watering tasks.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🌧️</div>
+        <h3>Collect Rainwater</h3>
+        <p>Place tanks or barrels under downpipes to capture roof runoff and irrigate your garden for free.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">♻️</div>
+        <h3>Reuse Greywater</h3>
+        <p>Water from sinks and showers can safely be redirected to flush toilets or water non-edible plants.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+  <section id="benefits" class="section">
+    <p class="section-label">Why It Matters</p>
+    <h2>Benefits of Rainwater Harvesting</h2>
+    <p>From household savings to community resilience, the advantages of harvesting rainwater reach far and wide.</p>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <div class="benefit-dot"></div>
+        <span>Saves water by reducing dependence on municipal supply</span>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-dot"></div>
+        <span>Reduces water bills for households and businesses</span>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-dot"></div>
+        <span>Provides a reliable backup supply during droughts</span>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-dot"></div>
+        <span>Supports healthy gardening with naturally soft water</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DIAGRAM ── -->
+  <section id="diagram" class="section">
+    <p class="section-label">System Overview</p>
+    <h2>How a Rainwater System Works</h2>
+    <p>The diagram below illustrates the journey of rainwater — from catchment on the roof, through filters and storage tanks, to end use in the home and garden.</p>
+    <div class="diagram-wrap">
+      <img
+        src="https://media.geeksforgeeks.org/wp-content/uploads/20231108115542/Rainwater-Harvesting.png"
+        alt="Diagram showing a rainwater harvesting system: roof catchment, gutters, first-flush diverter, storage tank, and distribution to household and garden uses."
+      />
+      <p class="diagram-caption">A typical rooftop rainwater harvesting system — catchment → filtration → storage → distribution</p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="section">
+    <p class="section-label">Get In Touch</p>
+    <h2>Contact Us</h2>
+    <p>Have a question, want to share your story, or interested in setting up a system? We would love to hear from you.</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="field-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+      </div>
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us what's on your mind…" required></textarea>
+      </div>
+      <button class="btn-send" type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>© 2026 <strong>Rainwater Harvesting Awareness Project</strong> — Every drop conserved is a future secured.</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-send');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#3D8C60';
+      btn.disabled = true;
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
